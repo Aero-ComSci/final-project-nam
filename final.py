@@ -39,19 +39,19 @@ easy = 0
 medium = 0
 hard = 0
 difficulty = {
-    building: hard,
-    cat: easy,
-    kid: easy,
-    car: medium,
-    earthquake: medium,
-    train: hard,
-    boat: medium,
-    bomb: hard,
-    dog: medium,
-    homeless: easy,
-    villain: hard,
-    robbery: medium,
-    mugging: easy
+    building: "hard",
+    cat: "easy",
+    kid: "easy",
+    car: "medium",
+    earthquake: "medium",
+    train: "hard",
+    boat: "medium",
+    bomb: "hard",
+    dog: "medium",
+    homeless: "easy",
+    villain: "hard",
+    robbery: "medium",
+    mugging: "easy"
 }
 
 diamond_tier = (rank <= 500)
@@ -85,8 +85,8 @@ def rank_calculator(rank, option, difficulty, power):
         pass
     elif option == "run":
         if difficulty >= power:
-            print("You ran from a difficult situation. Rank remains unchanged.")
-            pass
+            print("You ran from a difficult situation. Rank increases.")
+            rank -= (1, 500)
         else:
             print("You ran from an easy situation! Your rank decreases slightly for cowardice.")
             if diamond_tier:
@@ -102,6 +102,7 @@ def rank_calculator(rank, option, difficulty, power):
     elif rank < 1:
         rank = 1
     return rank
+d = 0
 while rank != 1:
     current_power = 10000 - int(rank)
     random_situation = random.choice(list(situations))
@@ -115,5 +116,11 @@ while rank != 1:
     else:
         while situation_input not in fight:
             situation_input = input(random_situation + situations[random_situation])
-    rank = rank_calculator(rank, situation_input, difficulty[random_situation], current_power)
+    if difficulty[random_situation] == "easy":
+        d = easy
+    elif difficulty[random_situation] == "medium":
+        d = medium
+    else:
+        d = hard
+    rank = rank_calculator(rank, situation_input, d, current_power)
     print(f"Current rank: {rank}")
