@@ -86,7 +86,7 @@ def rank_calculator(rank, option, difficulty, power):
     elif option == "run":
         if difficulty >= power:
             print("You ran from a difficult situation. Rank increases.")
-            rank -= (1, 500)
+            rank -= random.randint(1, 500)
         else:
             print("You ran from an easy situation! Your rank decreases slightly for cowardice.")
             if diamond_tier:
@@ -109,7 +109,8 @@ while rank != 1:
     easy = random.randint(0, 3000)
     medium = random.randint(3000, 6000)
     hard = random.randint(6000, 10000)
-    situation_input = input(random_situation + situations[random_situation]).lower()
+    situation_input = input(random_situation + situations[random_situation])
+    situation_input = situation_input.lower()
     if situations[random_situation] == save_options:
         while situation_input not in save:
             situation_input = input(random_situation + situations[random_situation])
